@@ -1,24 +1,32 @@
-# Portfolio
+# Advait Paranjpe Portfolio
 
-Personal portfolio website for Advait Paranjpe.
+Source code for my personal portfolio website.
 
-## Live site
-https://advaitparanjpe.com
+## Live Site
+[advaitparanjpe.com](https://advaitparanjpe.com)
 
 ## Overview
-This repository contains the source for my personal portfolio website. The site includes a minimal landing page, an interactive portfolio section, project drop-down cards, theme support, and custom motion/scroll behavior.
+This repository contains the code for my portfolio website. The site is designed to present my background, selected engineering projects, and experience in a clean, interactive format. It includes a minimal landing page, a scroll-based portfolio section, expandable project cards, theme support, and custom visual interactions.
 
 ## Features
-- Minimal landing page
-- Theme toggle
-- Interactive mouse-trace background
-- Expandable project cards
-- Project media and resume links
+- Minimal landing page with direct links to CV, LinkedIn, and GitHub
+- Interactive mouse-trace background effect
+- Light and dark theme toggle
+- Expandable project and experience cards
+- Smooth scrolling and fade-in / fade-out transitions
+- Embedded project media and external repo links
 
-## Stack
+## Tech Stack
 - HTML
 - CSS
 - Vanilla JavaScript
 
-## Repo purpose
-This repo tracks the development and iteration of the portfolio site itself.
+## Project Structure
+```text
+portfolio/
+├── index.html
+├── styles.css
+├── resume.pdf
+├── assets/
+├── media/
+└── README.md
