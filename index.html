@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Advait Paranjpe</title>
+  <meta name="description" content="Advait Paranjpe — engineering portfolio." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="pcbBg" aria-hidden="true"></canvas>
+  <section id="top" class="landing">
+    <div class="landing-topbar">
+      <button class="btn small ghost theme-toggle-floating" id="themeToggle" type="button" aria-label="Toggle theme">☀</button>
+    </div>
+
+    <div class="landing-inner">
+      <p class="landing-kicker">Advait Paranjpe</p>
+      <h1>Electrical &amp; Computer Engineering</h1>
+      <p class="landing-copy">
+        UCLA M.S. student focused on hardware, embedded systems, FPGA design, and performance-minded software.
+      </p>
+
+      <div class="landing-links">
+        <a class="btn landing-link-btn" href="resume.pdf" target="_blank" rel="noopener">CV</a>
+        <a class="btn landing-link-btn" href="https://www.linkedin.com/in/advait-paranjpe" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn landing-link-btn" href="https://github.com/advaitParanjpe" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <div class="landing-bottom-cta">
+      <a class="btn landing-portfolio-btn" id="portfolioTrigger" href="#portfolio-home">Portfolio</a>
+      <a class="scroll-cue" id="scrollCue" href="#portfolio-home" aria-label="Scroll to portfolio">
+        <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <div id="portfolio-home" class="portfolio-shell">
+    <main class="container">
+      <section class="hero hero-simple">
+        <div class="hero-text hero-text-simple">
+          <h2>Portfolio</h2>
+          <p class="muted hero-tagline">Selected engineering work, built end-to-end.</p>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="section-head">
+          <h2>Projects</h2>
+        </div>
+
+        <details id="pixelforge" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">PixelForge</span><span class="item-heading-sub">FPGA Retro Graphics Engine (Basys3 / Artix-7)</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              PixelForge is a retro-style graphics engine built in SystemVerilog for the Basys3 FPGA board. The project focused on taking a full graphics pipeline from idea to working hardware: generating a live VGA signal, rendering tiles and sprites in real time, and making sure the design was reliable enough to run on board rather than only in simulation. A major part of the work was building a pipelined pixel path, managing BRAM-based graphics data, and then verifying the design with a self-checking testbench and on-board ILA debug before bitstream generation.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Display</div><div class="metric-value">640 × 480 at 60 Hz real-time VGA output.</div></div>
+              <div class="metric-row"><div class="metric-label">Timing</div><div class="metric-value">Closed post-route timing with +1.3 ns WNS at 100 MHz.</div></div>
+              <div class="metric-row"><div class="metric-label">Hardware use</div><div class="metric-value">Roughly 2.1k LUTs, 2.6k flip-flops, and 8 BRAMs for the tilemap renderer and sprite compositor.</div></div>
+              <div class="metric-row"><div class="metric-label">Verification</div><div class="metric-value">Self-checking SystemVerilog testbench with about 120 assertions, plus on-board ILA debug.</div></div>
+              <div class="metric-row"><div class="metric-label">Debug outcome</div><div class="metric-value">Fixed 6 bugs before bitstream generation.</div></div>
+            </div>
+
+            <div class="proj-links">
+              <a href="https://github.com/YOUR_REPO" target="_blank" rel="noopener">Repo</a>
+              <a href="#" target="_blank" rel="noopener">Writeup</a>
+              <a href="#" target="_blank" rel="noopener">Demo</a>
+            </div>
+          </div>
+        </details>
+
+        <details id="speakup" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">SpeakUp</span><span class="item-heading-sub">Real-Time Sign Language to Speech Translator</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              SpeakUp is an embedded sign-language-to-speech system designed to run fully offline on a Raspberry Pi 3 with a Sony IMX500 camera. The project combined vision, on-device inference, and speech synthesis into one real-time pipeline, with the goal of making gesture recognition usable on constrained hardware rather than relying on cloud processing. The work involved fine-tuning and quantizing a MobileNetV2 model, integrating eSpeak text-to-speech, and then optimizing the full capture-to-neural-network-to-audio path with pipelining and thread pinning so the system stayed responsive in practice.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Inference</div><div class="metric-value">Real-time on-device inference at about 18 fps.</div></div>
+              <div class="metric-row"><div class="metric-label">Latency</div><div class="metric-value">Roughly 180 ms end-to-end latency.</div></div>
+              <div class="metric-row"><div class="metric-label">Model</div><div class="metric-value">Fine-tuned and quantized MobileNetV2 in TensorFlow, reaching about 91% gesture-recognition accuracy.</div></div>
+              <div class="metric-row"><div class="metric-label">Speech output</div><div class="metric-value">About 250 ms time-to-first audio with roughly 120 ms audio lag using eSpeak TTS.</div></div>
+              <div class="metric-row"><div class="metric-label">Runtime limits</div><div class="metric-value">Kept usage below 70% CPU, 220 MB RAM, and 3.2 W power.</div></div>
+            </div>
+
+            <div class="proj-video">
+              <video controls playsinline preload="metadata" poster="assets/thumbnail.jpg">
+                <source src="media/demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div class="proj-links">
+              <a href="https://github.com/advaitParanjpe/speakUp" target="_blank" rel="noopener">Repo</a>
+              <a href="https://developer.sony.com/posts/more-brilliant-hacks-from-hack-a-bot-2025-powered-by-imx500-sign-language-to-speech-lab-assistant-robot" target="_blank" rel="noopener">Article</a>
+            </div>
+          </div>
+        </details>
+
+        <details id="mfs" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">Dissertation</span><span class="item-heading-sub">Novel Tunable Microwave Frequency Synthesizer (Cascaded PLL)</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              This dissertation project centered on designing a tunable microwave frequency synthesizer for 5G systems using a novel cascaded-PLL architecture. The work covered the full stack from RF design through firmware and user control: defining the synthesizer architecture, validating performance in the lab with a spectrum analyzer, creating a CRC-protected SPI interface with read-back verification, and building C/C++ firmware plus a Python GUI to make switching and calibration practical. A big part of the project was proving that the design was not only theoretically sound, but also robust on real hardware.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Phase noise</div><div class="metric-value">Sub -150 dBc/Hz at 10 kHz offset at 15 GHz.</div></div>
+              <div class="metric-row"><div class="metric-label">Benchmark</div><div class="metric-value">Measured about 20 dBc/Hz better than Texas Instruments evaluation-board limits.</div></div>
+              <div class="metric-row"><div class="metric-label">Interface</div><div class="metric-value">Register map with CRC-protected SPI and read-back verification, making the control path RTL/FPGA-ready.</div></div>
+              <div class="metric-row"><div class="metric-label">Board quality</div><div class="metric-value">Delivered first-pass signal integrity through controlled impedance and strong PDN decoupling.</div></div>
+              <div class="metric-row"><div class="metric-label">Control speed</div><div class="metric-value">Switching under 1 second and 3× faster frequency calibration through firmware and Python GUI tooling.</div></div>
+            </div>
+
+            <h4 class="media-title">Media</h4>
+            <p class="muted media-sub">Measurements, PCB, and tooling snapshots.</p>
+
+            <div class="media-grid">
+              <figure class="media">
+                <a href="media/mfs/layout_top.jpg" target="_blank" rel="noopener">
+                  <img src="media/mfs/layout_top.jpg" alt="Altium layout top view" loading="lazy" decoding="async" />
+                </a>
+                <figcaption>Top layout</figcaption>
+              </figure>
+
+              <figure class="media">
+                <a href="media/mfs/schematic_pg1.jpg" target="_blank" rel="noopener">
+                  <img src="media/mfs/schematic_pg1.jpg" alt="Optimized PCB schematic page 1" loading="lazy" decoding="async" />
+                </a>
+                <figcaption>PCB schematic</figcaption>
+              </figure>
+
+              <figure class="media">
+                <a href="media/mfs/phase_noise.png" target="_blank" rel="noopener">
+                  <img src="media/mfs/phase_noise.png" alt="Phase noise output" loading="lazy" decoding="async" />
+                </a>
+                <figcaption>Phase noise output</figcaption>
+              </figure>
+
+              <figure class="media">
+                <a href="media/mfs/layout_bottom.jpg" target="_blank" rel="noopener">
+                  <img src="media/mfs/layout_bottom.jpg" alt="Altium layout bottom view" loading="lazy" decoding="async" />
+                </a>
+                <figcaption>Bottom layout</figcaption>
+              </figure>
+
+              <figure class="media">
+                <a href="media/mfs/schematic_pg2.jpg" target="_blank" rel="noopener">
+                  <img src="media/mfs/schematic_pg2.jpg" alt="Optimized PCB schematic page 2" loading="lazy" decoding="async" />
+                </a>
+                <figcaption>PCB schematic</figcaption>
+              </figure>
+
+              <figure class="media">
+                <a href="media/mfs/board_top.jpg" target="_blank" rel="noopener">
+                  <img src="media/mfs/board_top.jpg" alt="Physical board" loading="lazy" decoding="async" />
+                </a>
+                <figcaption>Physical board</figcaption>
+              </figure>
+            </div>
+
+            <div class="proj-links">
+              <a href="mfs_dissertation.pdf" target="_blank" rel="noopener">Dissertation (PDF)</a>
+              <a href="https://github.com/advaitParanjpe/microwave_frequency_synthesizer" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </details>
+
+        <details id="stm-line-tracker" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">STMicroelectronics</span><span class="item-heading-sub">Autonomous Line Tracking Buggy</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              This project involved building an autonomous line-tracking buggy and tuning its control loop so it could follow the track reliably under real competition conditions. The main engineering challenge was designing and tuning a PID controller that stayed stable while handling sensor noise and track variation. The end result was a robust control system that translated directly into competition performance.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Control</div><div class="metric-value">PID controller designed and tuned for robust closed-loop tracking.</div></div>
+              <div class="metric-row"><div class="metric-label">Tracking</div><div class="metric-value">Achieved 100% line-tracking accuracy.</div></div>
+              <div class="metric-row"><div class="metric-label">Result</div><div class="metric-value">Finished in the top 3 among more than 50 teams.</div></div>
+            </div>
+
+            <div class="proj-video">
+              <video controls playsinline preload="metadata" poster="assets/thumbnail_buggy.jpg">
+                <source src="media/demo_buggy.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div class="proj-links">
+              <a href="https://github.com/advaitParanjpe/buggyProj/tree/main" target="_blank" rel="noopener">Repo</a>
+              <a href="#" target="_blank" rel="noopener">Demo</a>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section id="experience" class="section">
+        <div class="section-head">
+          <h2>Experience</h2>
+        </div>
+
+        <details id="exp-neso" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">National Energy System Operator</span><span class="item-heading-sub">Backend Software Engineering Intern</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              At the National Energy System Operator, the work centered on making large forecasting and simulation tools faster, more reliable, and more useful to the teams depending on them. The role involved refactoring critical code, building decision logic for price forecasting, and improving data movement into simulation pipelines. A strong theme throughout the internship was turning performance work into measurable engineering impact at real scale.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Core tooling</div><div class="metric-value">Refactored a 100k+ line codebase with vectorization, making the daily run 10× faster and saving more than 450 hours per year.</div></div>
+              <div class="metric-row"><div class="metric-label">Forecasting</div><div class="metric-value">Built a Bayesian decision engine that made price-forecasting runs 60× faster.</div></div>
+              <div class="metric-row"><div class="metric-label">Pipeline</div><div class="metric-value">Parallelized and batched API requests to create a 24× faster simulation-input pipeline.</div></div>
+              <div class="metric-row"><div class="metric-label">Scale</div><div class="metric-value">Processed 100M+ rows using chunked parallelization, reducing RAM from 32 GB to 16 GB and improving execution speed 11×.</div></div>
+            </div>
+          </div>
+        </details>
+
+        <details id="exp-ngeso" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">National Grid ESO</span><span class="item-heading-sub">Data Engineering Intern</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              At National Grid ESO, the focus was on building cleaner and more automated data pipelines for electrical-grid datasets. The work combined API integration, data processing, and communication of large volumes of information in a way that was easier for stakeholders to use. The result was a set of improvements that reduced manual effort, improved parsing performance, and made large datasets easier to review.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Automation</div><div class="metric-value">Integrated the Elexon API into a Python service, saving more than 400 manual hours per year.</div></div>
+              <div class="metric-row"><div class="metric-label">Parsing</div><div class="metric-value">Designed a Pandas and NumPy based grid-data pipeline that improved parsing efficiency by 40%.</div></div>
+              <div class="metric-row"><div class="metric-label">Scale</div><div class="metric-value">Translated more than 100M data points into stakeholder-friendly outputs for faster model reviews and decisions.</div></div>
+            </div>
+          </div>
+        </details>
+
+        <details id="exp-bmw" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">BMW</span><span class="item-heading-sub">Electronics and Systems Technology Intern</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              At BMW, the work focused on supporting diagnostics workflows for the MGU22 infotainment platform. The role involved contributing to C++ tooling used in regenerative-braking diagnostics, with an emphasis on making engineering workflows more practical and reducing the time needed for testing and analysis.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <section id="about" class="section">
+        <div class="section-head">
+          <h2>About</h2>
+        </div>
+        <div class="card">
+          <div class="about-wrap">
+            <p class="about-text">
+              I’m a UCLA M.S. ECE student who likes building real projects and getting them to work end-to-end.
+              I care about clear design, careful debugging, and having something concrete to show: tests,
+              measurements, demos, or benchmarks.
+            </p>
+
+            <div class="contact-card">
+              <div class="contact-title">Contact</div>
+
+              <a class="contact-item" href="mailto:advait_paranjpe@outlook.com">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">advait_paranjpe@outlook.com</span>
+              </a>
+
+              <a class="contact-item" href="tel:+12132849936">
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">+1 (213) 284 9936</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span class="muted">© <span id="y"></span> Advait Paranjpe</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const root = document.documentElement;
+    const btn = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("theme");
+    const initialTheme = savedTheme || "light";
+
+    root.setAttribute("data-theme", initialTheme);
+    btn.textContent = initialTheme === "dark" ? "☀" : "☾";
+
+    btn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      btn.textContent = next === "dark" ? "☀" : "☾";
+    });
+
+    (() => {
+      const triggers = [
+        document.getElementById("portfolioTrigger"),
+        document.getElementById("scrollCue")
+      ].filter(Boolean);
+      const target = document.getElementById("portfolio-home");
+      const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+      function easeInOutCubic(t) {
+        return t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function smoothScrollTo(targetY, duration = 1150) {
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+        const startTime = performance.now();
+
+        function step(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeInOutCubic(progress);
+          window.scrollTo(0, startY + distance * eased);
+          if (progress < 1) window.requestAnimationFrame(step);
+        }
+
+        window.requestAnimationFrame(step);
+      }
+
+      if (triggers.length && target) {
+        triggers.forEach((trigger) => {
+          trigger.addEventListener("click", (event) => {
+            if (prefersReduced) return;
+            event.preventDefault();
+            const top = target.getBoundingClientRect().top + window.scrollY - 8;
+            smoothScrollTo(top, 1150);
+          });
+        });
+      }
+
+      const revealTargets = [
+        ...document.querySelectorAll(".hero-simple, .section-head, .proj-detail, #about .card, .footer")
+      ];
+
+      if (!prefersReduced) {
+        revealTargets.forEach((el, index) => {
+          el.classList.add("reveal-on-scroll");
+          el.style.setProperty("--reveal-delay", `${Math.min(index * 45, 260)}ms`);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle("is-visible", entry.isIntersecting);
+          });
+        }, {
+          threshold: 0.16,
+          rootMargin: "0px 0px -8% 0px"
+        });
+
+        revealTargets.forEach((el) => observer.observe(el));
+      } else {
+        revealTargets.forEach((el) => el.classList.add("is-visible"));
+      }
+    })();
+
+    (() => {
+      const canvas = document.getElementById("pcbBg");
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+
+      const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+      const CFG = {
+        grid: 32,
+        ttl: 3200,
+        maxSegs: 260,
+        minStep: 64,
+        lineW: 30,
+        onlyBackground: true,
+        allow45: true,
+        fade: true
+      };
+
+      const readPalette = () => {
+        const css = getComputedStyle(document.documentElement);
+        return [
+          css.getPropertyValue("--trace-red").trim() || "#D52429",
+          css.getPropertyValue("--trace-orange").trim() || "#F1602C",
+          css.getPropertyValue("--trace-amber").trim() || "#EC8922",
+          css.getPropertyValue("--trace-brown").trim() || "#915018",
+          css.getPropertyValue("--trace-coffee").trim() || "#6C3F18"
+        ];
+      };
+
+      let palette = readPalette();
+      new MutationObserver(() => {
+        palette = readPalette();
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+      let W = 0;
+      let H = 0;
+      let DPR = 1;
+
+      function resize() {
+        DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+
+      const snap = (v, g) => Math.round(v / g) * g;
+      const clamp01 = (x) => Math.max(0, Math.min(1, x));
+      const dist = (ax, ay, bx, by) => Math.hypot(ax - bx, ay - by);
+
+      function isUI(target) {
+        if (!CFG.onlyBackground) return false;
+        if (!target || !target.closest) return false;
+        return !!target.closest("a,button,summary,details,video,.btn,.card,.proj-detail,.landing-links");
+      }
+
+      const segs = [];
+      let last = null;
+      let colorIdx = 0;
+      let alt = false;
+
+      function addSeg(x1, y1, x2, y2, col) {
+        if (x1 === x2 && y1 === y2) return;
+        segs.push({ x1, y1, x2, y2, t0: performance.now(), ttl: CFG.ttl, col });
+        while (segs.length > CFG.maxSegs) segs.shift();
+      }
+
+      function addRoute(ax, ay, bx, by) {
+        const col = palette[colorIdx % palette.length];
+        colorIdx += 1;
+
+        const dx = bx - ax;
+        const dy = by - ay;
+
+        if (CFG.allow45 && Math.abs(dx) === Math.abs(dy)) {
+          addSeg(ax, ay, bx, by, col);
+          return;
+        }
+
+        alt = !alt;
+
+        if (CFG.allow45) {
+          const sx = Math.sign(dx) || 1;
+          const sy = Math.sign(dy) || 1;
+          const adx = Math.abs(dx);
+          const ady = Math.abs(dy);
+          const m = Math.min(adx, ady);
+
+          const cx1 = ax + sx * m;
+          const cy1 = ay + sy * m;
+          const cx2 = bx - sx * m;
+          const cy2 = by - sy * m;
+
+          if (alt) {
+            addSeg(ax, ay, cx1, cy1, col);
+            addSeg(cx1, cy1, bx, by, col);
+          } else {
+            addSeg(ax, ay, cx2, cy2, col);
+            addSeg(cx2, cy2, bx, by, col);
+          }
+          return;
+        }
+
+        const cx = alt ? bx : ax;
+        const cy = alt ? ay : by;
+        addSeg(ax, ay, cx, cy, col);
+        addSeg(cx, cy, bx, by, col);
+      }
+
+      function draw() {
+        const now = performance.now();
+        ctx.clearRect(0, 0, W, H);
+
+        for (let i = segs.length - 1; i >= 0; i -= 1) {
+          if (now - segs[i].t0 >= segs[i].ttl) segs.splice(i, 1);
+        }
+
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.lineWidth = CFG.lineW;
+
+        for (const s of segs) {
+          const age = now - s.t0;
+          const a = CFG.fade ? clamp01(1 - age / s.ttl) : 1;
+          ctx.globalAlpha = a;
+          ctx.strokeStyle = s.col;
+          ctx.beginPath();
+          ctx.moveTo(s.x1, s.y1);
+          ctx.lineTo(s.x2, s.y2);
+          ctx.stroke();
+        }
+
+        ctx.globalAlpha = 1;
+
+        if (!prefersReduced) requestAnimationFrame(draw);
+      }
+
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
+
+      if (prefersReduced) {
+        draw();
+        return;
+      }
+
+      requestAnimationFrame(draw);
+
+      window.addEventListener("pointermove", (e) => {
+        if (isUI(e.target)) {
+          last = null;
+          return;
+        }
+
+        if (e.pointerType === "touch") return;
+
+        const x = snap(e.clientX, CFG.grid);
+        const y = snap(e.clientY, CFG.grid);
+
+        if (!last) {
+          last = { x, y };
+          return;
+        }
+
+        if (dist(last.x, last.y, x, y) < CFG.minStep) return;
+
+        addRoute(last.x, last.y, x, y);
+        last = { x, y };
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
