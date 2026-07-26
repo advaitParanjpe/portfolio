@@ -1,0 +1,47 @@
+flowchart LR
+  subgraph Interfaces["Unchanged integration interfaces"]
+    SW["Register bus"]
+    APB["APB wrapper"]
+    AXIL["AXI-Lite control"]
+    DMA["Single-beat AXI DMA"]
+  end
+
+  subgraph Core["Register-controlled tinyNPU core"]
+    TOP["tinynpu_top<br/>CTRL · busy · done"]
+    A["A scratchpad<br/>16 × INT8"]
+    B["B scratchpad<br/>16 × INT8"]
+    C["C result buffer<br/>16 × INT32"]
+
+    subgraph Systolic["4×4 output-stationary systolic engine"]
+      EDGE["Registered, skewed<br/>A/B injection"]
+      MESH["16 pipelined PEs<br/>A moves right · B moves down"]
+      PIPE["Per-PE pipeline<br/>partial products → product → accumulate"]
+      EDGE --> MESH
+      MESH --- PIPE
+    end
+
+    TOP --> A
+    TOP --> B
+    A --> EDGE
+    B --> EDGE
+    MESH --> C
+    C --> TOP
+  end
+
+  SW --> TOP
+  APB --> TOP
+  AXIL --> TOP
+  DMA --> TOP
+
+  NOTE["100 MHz post-route timing closed<br/>+0.89 ns setup · +0.28 ns hold"]
+  Systolic -.-> NOTE
+
+  classDef node fill:#1f1f1f,stroke:#aaaaaa,color:#eeeeee;
+  classDef accent fill:#132b2f,stroke:#5eead4,color:#ecfeff,stroke-width:2px;
+  classDef note fill:#201a32,stroke:#c4b5fd,color:#f5f3ff;
+  class SW,APB,AXIL,DMA,TOP,A,B,C,EDGE,PIPE node;
+  class MESH accent;
+  class NOTE note;
+  style Interfaces fill:transparent,stroke:#888888,stroke-dasharray:4 4,color:#eeeeee;
+  style Core fill:transparent,stroke:#888888,stroke-dasharray:4 4,color:#eeeeee;
+  style Systolic fill:transparent,stroke:#5eead4,stroke-width:2px,color:#eeeeee;

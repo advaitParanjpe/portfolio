@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Advait Paranjpe</title>
-  <meta name="description" content="Advait Paranjpe — engineering portfolio." />
+  <meta name="description" content="Advait Paranjpe - RTL, ASIC, FPGA, SoC, and computer architecture portfolio." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,15 +16,12 @@
 
     <div class="landing-inner">
       <p class="landing-kicker">Advait Paranjpe</p>
-      <h1>Electrical &amp; Computer Engineering</h1>
-      <p class="landing-copy">
-        UCLA M.S. student focused on hardware, embedded systems, FPGA design, and performance-minded software.
-      </p>
+      <h1>RTL, ASIC &amp; FPGA Engineering</h1>
 
       <div class="landing-links">
         <a class="btn landing-link-btn" href="resume.pdf" target="_blank" rel="noopener">CV</a>
         <a class="btn landing-link-btn" href="https://www.linkedin.com/in/advait-paranjpe" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn landing-link-btn" href="https://github.com/advaitParanjpe" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn landing-link-btn" href="https://github.com/AdvaitParanjpe" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
 
@@ -41,7 +38,7 @@
       <section class="hero hero-simple">
         <div class="hero-text hero-text-simple">
           <h2>Portfolio</h2>
-          <p class="muted hero-tagline">Selected engineering work, built end-to-end.</p>
+          <p class="muted hero-tagline">Selected RTL, computer architecture, SoC, FPGA, ASIC flow, and hardware verification work.</p>
         </div>
       </section>
 
@@ -50,31 +47,104 @@
           <h2>Projects</h2>
         </div>
 
-        <details id="pixelforge" class="proj-detail card">
+        <details id="tinynpu" class="proj-detail card">
           <summary class="proj-detail-summary">
             <div>
-              <h3 class="item-heading"><span class="item-heading-main">PixelForge</span><span class="item-heading-sub">FPGA Retro Graphics Engine (Basys3 / Artix-7)</span></h3>
+              <h3 class="item-heading"><span class="item-heading-main">tinyNPU</span><span class="item-heading-sub">INT8 Systolic Accelerator &amp; ASIC Timing Closure</span></h3>
             </div>
             <span class="chev" aria-hidden="true">›</span>
           </summary>
 
           <div class="proj-detail-body">
             <p class="project-overview">
-              PixelForge is a retro-style graphics engine built in SystemVerilog for the Basys3 FPGA board. The project focused on taking a full graphics pipeline from idea to working hardware: generating a live VGA signal, rendering tiles and sprites in real time, and making sure the design was reliable enough to run on board rather than only in simulation. A major part of the work was building a pipelined pixel path, managing BRAM-based graphics data, and then verifying the design with a self-checking testbench and on-board ILA debug before bitstream generation.
+              tinyNPU is a fixed 4x4 signed-INT8 matrix-multiply accelerator built around an output-stationary systolic array. Sixteen pipelined processing elements move A operands across rows and B operands down columns while accumulating INT32 outputs locally. The systolic engine preserves the existing register-controlled scratchpad core, APB/AXI-Lite and single-beat AXI DMA wrappers, and double-buffered AXI4-Stream architecture while closing post-route setup and hold timing at 100 MHz in OpenLane/SKY130.
             </p>
 
             <div class="metrics-table">
-              <div class="metric-row"><div class="metric-label">Display</div><div class="metric-value">640 × 480 at 60 Hz real-time VGA output.</div></div>
-              <div class="metric-row"><div class="metric-label">Timing</div><div class="metric-value">Closed post-route timing with +1.3 ns WNS at 100 MHz.</div></div>
-              <div class="metric-row"><div class="metric-label">Hardware use</div><div class="metric-value">Roughly 2.1k LUTs, 2.6k flip-flops, and 8 BRAMs for the tilemap renderer and sprite compositor.</div></div>
-              <div class="metric-row"><div class="metric-label">Verification</div><div class="metric-value">Self-checking SystemVerilog testbench with about 120 assertions, plus on-board ILA debug.</div></div>
-              <div class="metric-row"><div class="metric-label">Debug outcome</div><div class="metric-value">Fixed 6 bugs before bitstream generation.</div></div>
+              <div class="metric-row"><div class="metric-label">Compute</div><div class="metric-value">4x4 output-stationary systolic array with 16 pipelined INT8 processing elements and local INT32 accumulation.</div></div>
+              <div class="metric-row"><div class="metric-label">Dataflow</div><div class="metric-value">Skewed wavefront injection moves A right and B down; registered partial products separate selection, multiplication, and accumulation.</div></div>
+              <div class="metric-row"><div class="metric-label">Streaming</div><div class="metric-value">Double-buffered A/B inputs and C outputs with independent load, compute, and output FSMs.</div></div>
+              <div class="metric-row"><div class="metric-label">Performance</div><div class="metric-value">17-cycle compute latency, 115-cycle first-tile streaming latency, and 64 cycles/tile steady state.</div></div>
+              <div class="metric-row"><div class="metric-label">Timing</div><div class="metric-value">Closed setup and hold at 100 MHz across nine post-route corners: +0.89 ns setup and +0.28 ns hold worst slack.</div></div>
+              <div class="metric-row"><div class="metric-label">ASIC flow</div><div class="metric-value">OpenLane/SKY130 RTL-to-GDS flow with clean routed, Magic, and KLayout DRC and passing LVS; electrical and antenna cleanup remains.</div></div>
+              <div class="metric-row"><div class="metric-label">Interfaces</div><div class="metric-value">Unchanged register map and scratchpads with APB, AXI-Lite, single-beat AXI DMA, and AXI4-Stream integration.</div></div>
+              <div class="metric-row"><div class="metric-label">Tags</div><div class="metric-value">SystemVerilog, Systolic Arrays, RTL, ASIC Flow, OpenLane, SKY130, AXI, APB, DMA, STA.</div></div>
+            </div>
+
+            <h4 class="media-title">Architecture</h4>
+            <figure class="project-image-single project-diagram-image">
+              <a href="media/tinynpu/architecture.svg" target="_blank" rel="noopener">
+                <img src="media/tinynpu/architecture.svg" alt="tinyNPU register-controlled systolic accelerator and integration architecture diagram" loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Register-controlled tinyNPU architecture with unchanged integration interfaces and the 4x4 output-stationary systolic compute engine.</figcaption>
+            </figure>
+
+            <figure class="project-image-single project-diagram-image">
+              <a href="media/tinynpu/streaming-npu.svg" target="_blank" rel="noopener">
+                <img src="media/tinynpu/streaming-npu.svg" alt="tinyNPU double-buffered streaming architecture with a 4x4 systolic compute engine" loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Double-buffered AXI4-Stream organization with independent load, systolic compute, and output control.</figcaption>
+            </figure>
+
+            <div class="proj-links">
+              <a href="https://github.com/AdvaitParanjpe/tinyNPU" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </details>
+
+        <details id="sparrow-v" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">Sparrow-V</span><span class="item-heading-sub">RISC-V Processor and Multicore Coherent SoC</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              Sparrow-V is a synthesizable RV32I processor project extended into a four-core coherent SoC, with a four-lane INT8/INT16 vector engine, custom vector instructions, private L1 caches, shared memory, and MSI cache coherence.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">CPU</div><div class="metric-value">Synthesizable RV32I processor.</div></div>
+              <div class="metric-row"><div class="metric-label">Vector engine</div><div class="metric-value">Four-lane INT8/INT16 vector engine with custom vector instructions.</div></div>
+              <div class="metric-row"><div class="metric-label">Pipeline</div><div class="metric-value">Forwarding, branch handling, and memory backpressure support.</div></div>
+              <div class="metric-row"><div class="metric-label">SoC</div><div class="metric-value">Extended into a four-core coherent SoC with private L1 caches and shared memory.</div></div>
+              <div class="metric-row"><div class="metric-label">Coherence</div><div class="metric-value">MSI cache coherence across the multicore system.</div></div>
+              <div class="metric-row"><div class="metric-label">Verification</div><div class="metric-value">Randomized tests, assertions, multicore workloads, counters, and timing analysis.</div></div>
+              <div class="metric-row"><div class="metric-label">Tags</div><div class="metric-value">SystemVerilog, RISC-V, RV32I, Computer Architecture, SoC, Caches, Coherence, Verification.</div></div>
             </div>
 
             <div class="proj-links">
-              <a href="https://github.com/YOUR_REPO" target="_blank" rel="noopener">Repo</a>
-              <a href="#" target="_blank" rel="noopener">Writeup</a>
-              <a href="#" target="_blank" rel="noopener">Demo</a>
+              <a href="https://github.com/AdvaitParanjpe/sparrow-v" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </details>
+
+        <details id="axi-router" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">AXI4-Stream Router IP</span><span class="item-heading-sub">RTL Design and UVM Verification Project</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              AXI4-Stream Router IP is a 2-input, 4-output packet router RTL and verification project with store-forward buffering, round-robin arbitration, packet locking, backpressure handling, and a UVM-focused verification environment.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">RTL</div><div class="metric-value">2-input, 4-output AXI4-Stream packet router.</div></div>
+              <div class="metric-row"><div class="metric-label">Microarchitecture</div><div class="metric-value">Store-forward buffers, round-robin arbitration, packet locking, and backpressure.</div></div>
+              <div class="metric-row"><div class="metric-label">Testbenches</div><div class="metric-value">UVM and conventional testbenches.</div></div>
+              <div class="metric-row"><div class="metric-label">UVM</div><div class="metric-value">Agents, monitors, scoreboards, reference models, protocol checks, and coverage.</div></div>
+              <div class="metric-row"><div class="metric-label">Regression</div><div class="metric-value">32-seed regression closure covering contention, stalls, resets, drops, counter wrap, and head-of-line blocking.</div></div>
+              <div class="metric-row"><div class="metric-label">Tags</div><div class="metric-value">SystemVerilog, AXI4-Stream, UVM, RTL Design, Verification, Coverage, Regression.</div></div>
+            </div>
+
+            <div class="proj-links">
+              <a href="https://github.com/AdvaitParanjpe/axi-router" target="_blank" rel="noopener">GitHub</a>
             </div>
           </div>
         </details>
@@ -228,60 +298,53 @@
           <h2>Experience</h2>
         </div>
 
+        <details id="exp-jlr" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">Jaguar Land Rover North America</span><span class="item-heading-sub">Semiconductor Applications Engineering Intern | Detroit, MI | Jul 2026-Sep 2026</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              Working on embedded SoC performance debug and board-level validation, with a focus on Cortex-A76 PMU profiling, low-level Linux tooling, and workload-level performance analysis.
+            </p>
+
+            <div class="metrics-table">
+              <div class="metric-row"><div class="metric-label">Tooling</div><div class="metric-value">Cortex-A76 PMU profiling tool in low-level C/C++ Linux tooling.</div></div>
+              <div class="metric-row"><div class="metric-label">Profiling</div><div class="metric-value">PMU event setup, sampling, and workload profiling.</div></div>
+              <div class="metric-row"><div class="metric-label">Validation</div><div class="metric-value">Board-level validation and embedded SoC performance debug.</div></div>
+            </div>
+          </div>
+        </details>
+
+        <details id="exp-vast" class="proj-detail card">
+          <summary class="proj-detail-summary">
+            <div>
+              <h3 class="item-heading"><span class="item-heading-main">VAST Lab, UCLA</span><span class="item-heading-sub">Student Researcher, FPGA Architecture &amp; GPU Acceleration | Jan 2026-Mar 2026</span></h3>
+            </div>
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+
+          <div class="proj-detail-body">
+            <p class="project-overview">
+              Student researcher focused on FPGA architecture and GPU acceleration.
+            </p>
+          </div>
+        </details>
+
         <details id="exp-neso" class="proj-detail card">
           <summary class="proj-detail-summary">
             <div>
-              <h3 class="item-heading"><span class="item-heading-main">National Energy System Operator</span><span class="item-heading-sub">Backend Software Engineering Intern</span></h3>
+              <h3 class="item-heading"><span class="item-heading-main">NESO / National Grid ESO</span><span class="item-heading-sub">Software Engineering Intern | Leamington Spa, UK | Jul 2024-Sep 2025</span></h3>
             </div>
             <span class="chev" aria-hidden="true">›</span>
           </summary>
 
           <div class="proj-detail-body">
             <p class="project-overview">
-              At the National Energy System Operator, the work centered on making large forecasting and simulation tools faster, more reliable, and more useful to the teams depending on them. The role involved refactoring critical code, building decision logic for price forecasting, and improving data movement into simulation pipelines. A strong theme throughout the internship was turning performance work into measurable engineering impact at real scale.
-            </p>
-
-            <div class="metrics-table">
-              <div class="metric-row"><div class="metric-label">Core tooling</div><div class="metric-value">Refactored a 100k+ line codebase with vectorization, making the daily run 10× faster and saving more than 450 hours per year.</div></div>
-              <div class="metric-row"><div class="metric-label">Forecasting</div><div class="metric-value">Built a Bayesian decision engine that made price-forecasting runs 60× faster.</div></div>
-              <div class="metric-row"><div class="metric-label">Pipeline</div><div class="metric-value">Parallelized and batched API requests to create a 24× faster simulation-input pipeline.</div></div>
-              <div class="metric-row"><div class="metric-label">Scale</div><div class="metric-value">Processed 100M+ rows using chunked parallelization, reducing RAM from 32 GB to 16 GB and improving execution speed 11×.</div></div>
-            </div>
-          </div>
-        </details>
-
-        <details id="exp-ngeso" class="proj-detail card">
-          <summary class="proj-detail-summary">
-            <div>
-              <h3 class="item-heading"><span class="item-heading-main">National Grid ESO</span><span class="item-heading-sub">Data Engineering Intern</span></h3>
-            </div>
-            <span class="chev" aria-hidden="true">›</span>
-          </summary>
-
-          <div class="proj-detail-body">
-            <p class="project-overview">
-              At National Grid ESO, the focus was on building cleaner and more automated data pipelines for electrical-grid datasets. The work combined API integration, data processing, and communication of large volumes of information in a way that was easier for stakeholders to use. The result was a set of improvements that reduced manual effort, improved parsing performance, and made large datasets easier to review.
-            </p>
-
-            <div class="metrics-table">
-              <div class="metric-row"><div class="metric-label">Automation</div><div class="metric-value">Integrated the Elexon API into a Python service, saving more than 400 manual hours per year.</div></div>
-              <div class="metric-row"><div class="metric-label">Parsing</div><div class="metric-value">Designed a Pandas and NumPy based grid-data pipeline that improved parsing efficiency by 40%.</div></div>
-              <div class="metric-row"><div class="metric-label">Scale</div><div class="metric-value">Translated more than 100M data points into stakeholder-friendly outputs for faster model reviews and decisions.</div></div>
-            </div>
-          </div>
-        </details>
-
-        <details id="exp-bmw" class="proj-detail card">
-          <summary class="proj-detail-summary">
-            <div>
-              <h3 class="item-heading"><span class="item-heading-main">BMW</span><span class="item-heading-sub">Electronics and Systems Technology Intern</span></h3>
-            </div>
-            <span class="chev" aria-hidden="true">›</span>
-          </summary>
-
-          <div class="proj-detail-body">
-            <p class="project-overview">
-              At BMW, the work focused on supporting diagnostics workflows for the MGU22 infotainment platform. The role involved contributing to C++ tooling used in regenerative-braking diagnostics, with an emphasis on making engineering workflows more practical and reducing the time needed for testing and analysis.
+              Software engineering internship at NESO / National Grid ESO in Leamington Spa, UK.
             </p>
           </div>
         </details>
@@ -294,9 +357,9 @@
         <div class="card">
           <div class="about-wrap">
             <p class="about-text">
-              I’m a UCLA M.S. ECE student who likes building real projects and getting them to work end-to-end.
-              I care about clear design, careful debugging, and having something concrete to show: tests,
-              measurements, demos, or benchmarks.
+              I'm a UCLA M.S. ECE student focused on RTL design, computer architecture, SoC design,
+              FPGA development, ASIC flows, and hardware verification. I like building hardware projects
+              end-to-end, from microarchitecture and RTL through testbenches, timing analysis, and flow validation.
             </p>
 
             <div class="contact-card">

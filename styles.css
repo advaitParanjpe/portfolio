@@ -80,7 +80,7 @@ a:hover{opacity:.9}
 
 .landing-kicker{
   margin:0 0 10px;
-  font-size:14px;
+  font-size:24px;
   letter-spacing:.16em;
   text-transform:uppercase;
   color:var(--muted);
@@ -300,6 +300,8 @@ main{
 #projects .proj-detail:nth-of-type(2){ --item-border: color-mix(in srgb, var(--trace-amber) 82%, var(--bg) 18%); }
 #projects .proj-detail:nth-of-type(3){ --item-border: color-mix(in srgb, var(--trace-red) 72%, var(--bg) 28%); }
 #projects .proj-detail:nth-of-type(4){ --item-border: color-mix(in srgb, var(--trace-brown) 82%, var(--bg) 18%); }
+#projects .proj-detail:nth-of-type(5){ --item-border: color-mix(in srgb, var(--trace-coffee) 86%, var(--bg) 14%); }
+#projects .proj-detail:nth-of-type(6){ --item-border: color-mix(in srgb, var(--trace-orange) 78%, var(--bg) 22%); }
 #experience .proj-detail:nth-of-type(1){ --item-border: color-mix(in srgb, var(--trace-red) 72%, var(--bg) 28%); }
 #experience .proj-detail:nth-of-type(2){ --item-border: color-mix(in srgb, var(--trace-amber) 82%, var(--bg) 18%); }
 #experience .proj-detail:nth-of-type(3){ --item-border: color-mix(in srgb, var(--trace-coffee) 86%, var(--bg) 14%); }
@@ -457,6 +459,40 @@ details[open] .chev{
   background:var(--panel2);
   border:1px solid var(--line);
   border-radius:12px;
+}
+
+.project-image-single{
+  margin:10px 0 0;
+}
+
+.project-image-single a{
+  display:block;
+}
+
+.project-image-single img{
+  display:block;
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+
+.project-diagram-image img{
+  height:auto;
+  min-width:760px;
+  max-height:none;
+}
+
+.project-diagram-image a{
+  overflow-x:auto;
+}
+
+.project-image-single figcaption{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--muted);
 }
 
 .media figcaption{

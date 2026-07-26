@@ -1,0 +1,22 @@
+flowchart LR
+  SI["AXI4-Stream input<br/>32 INT8 beats/tile"] --> LFSM["independent<br/>load FSM"]
+  LFSM --> AB0["A/B ping<br/>input buffer"]
+  LFSM --> AB1["A/B pong<br/>input buffer"]
+  AB0 --> CFSM["independent<br/>compute FSM"]
+  AB1 --> CFSM
+  CFSM --> MAC2["4×4 systolic engine<br/>16 output-stationary PEs"]
+  MAC2 --> C0["C ping<br/>output buffer"]
+  MAC2 --> C1["C pong<br/>output buffer"]
+  C0 --> OFSM["independent<br/>output FSM"]
+  C1 --> OFSM
+  OFSM --> SO["AXI4-Stream output<br/>16 INT32 beats/tile"]
+
+  PERF["17-cycle core<br/>115-cycle first tile<br/>64 cycles/tile steady state"]
+  MAC2 -.-> PERF
+
+  classDef node fill:#1f1f1f,stroke:#aaaaaa,color:#eeeeee;
+  classDef accent fill:#132b2f,stroke:#5eead4,color:#ecfeff,stroke-width:2px;
+  classDef note fill:#201a32,stroke:#c4b5fd,color:#f5f3ff;
+  class SI,LFSM,AB0,AB1,CFSM,C0,C1,OFSM,SO node;
+  class MAC2 accent;
+  class PERF note;
